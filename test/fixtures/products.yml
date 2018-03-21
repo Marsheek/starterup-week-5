@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  seller_profile: one
+  name: MyString
+  description: MyText
+  image: MyString
+  price: 9.99
+  num_in_stock: 1
+
+two:
+  seller_profile: two
+  name: MyString
+  description: MyText
+  image: MyString
+  price: 9.99
+  num_in_stock: 1

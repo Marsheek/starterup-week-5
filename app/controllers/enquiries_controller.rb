@@ -1,4 +1,6 @@
 class EnquiriesController < ApplicationController
+
+  skip_before_action :authenticate_user!, only: [:new, :create]
   before_action :set_enquiry, only: [:show, :edit, :update, :destroy]
 
   # GET /enquiries
@@ -28,7 +30,9 @@ class EnquiriesController < ApplicationController
 
     respond_to do |format|
       if @enquiry.save
-        format.html { redirect_to @enquiry, notice: 'Enquiry was successfully created.' }
+        EnquiryMailer.response(@enquiry.id).deliver_now
+        EnquiryMailer.received(@enquiry.id).deliver_now
+        format.html { redirect_to root_path, notice: 'Enquiry was successfully created.' }
         format.json { render :show, status: :created, location: @enquiry }
       else
         format.html { render :new }

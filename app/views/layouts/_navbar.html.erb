@@ -5,7 +5,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <a class="navbar-brand" href="/">My fancy app</a>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a href="/users/sign_up?user_type=seller" class="nav-link">Sell Stuff</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link <%= 'active' if current_page?(root_path) %>" href="/">Home</a>
       </li>

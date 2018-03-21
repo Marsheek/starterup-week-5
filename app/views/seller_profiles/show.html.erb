@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <%= image_tag @seller_profile.logo_url, class: 'img-fluid img-thumbnail' %>
+      <div class="card-body">
+        <h5 class="card-title"><%= @seller_profile.name %></h5>
+
+        <p>
+          <strong>Email:</strong>
+          <%= @seller_profile.user.email %>
+        </p>
+
+        <p>
+          <strong>Bio:</strong>
+          <%= @seller_profile.bio %>
+        </p>
+
+        <p>
+          <strong>Logo:</strong>
+          <%= @seller_profile.logo %>
+        </p>
+
+        <p>
+          <strong>Address:</strong>
+          <%= @seller_profile.full_address %>
+        </p>
+
+        <div id="map"></div>
+
+        <% if @seller_profile == current_user.seller_profile %>
+          <%= link_to '<i class="fa fa-edit"></i> Edit'.html_safe, edit_seller_profile_path(@seller_profile), class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-toggle="modal" data-target="#exampleModal">
+      <i class="fa fa-plus-square"></i> Add Product
+    </button>
+    <hr>
+    <div id="product-list">
+      <%= render @products %>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render 'products/form' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initMap() {
+    var location = {lat: <%= @seller_profile.latitude %>, lng: <%= @seller_profile.longitude %> };
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: location
+    });
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuVd57_cY4EySknVTuq7xMozHvWFEAjcY&callback=initMap">
+</script>
